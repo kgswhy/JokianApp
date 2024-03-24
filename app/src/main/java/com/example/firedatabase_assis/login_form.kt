@@ -25,12 +25,12 @@ class login_form : AppCompatActivity() {
             if(rs.moveToFirst()){
                 val name=rs.getString(rs.getColumnIndex("name"))
                 rs.close()
-                startActivity(Intent(this,welcome_window::class.java).putExtra("name",name))
+                startActivity(Intent(this,HomePage::class.java).putExtra("name",name))
             }
             else{
                 var ad = AlertDialog.Builder(this)
                 ad.setTitle("Message")
-                ad.setMessage("Email atau Password Salah")
+                ad.setMessage("Username atau Password Salah")
                 ad.setPositiveButton("Ok", null)
                 ad.show()
             }
