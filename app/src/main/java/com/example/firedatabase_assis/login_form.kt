@@ -1,40 +1,56 @@
 package com.example.firedatabase_assis
-import android.annotation.SuppressLint
+
 import android.content.Intent
-import android.database.Cursor
-import android.database.SQLException
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.example.firedatabase_assis.databinding.ActivityLoginFormBinding
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
+
 class login_form : AppCompatActivity() {
     private lateinit var bind : ActivityLoginFormBinding
-    @SuppressLint("Range")
+    private lateinit var auth: FirebaseAuth
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         bind= ActivityLoginFormBinding.inflate(layoutInflater)
         setContentView(bind.root)
-        var dbhelp=DB_class(applicationContext)
-        var db=dbhelp.readableDatabase
+
+        auth = Firebase.auth
+
         bind.btnlogin.setOnClickListener {
-            var email=bind.logtxt.text.toString();
-            var password=bind.ed3.text.toString()
-            val query="SELECT * FROM user WHERE email='"+email+"' AND pswd='"+password+"'"
-            val rs=db.rawQuery(query,null)
-            if(rs.moveToFirst()){
-                val name=rs.getString(rs.getColumnIndex("name"))
-                rs.close()
-                startActivity(Intent(this,HomePage::class.java).putExtra("name",name))
-            }
-            else{
-                var ad = AlertDialog.Builder(this)
-                ad.setTitle("Message")
-                ad.setMessage("Username atau Password Salah")
-                ad.setPositiveButton("Ok", null)
-                ad.show()
+            val email = bind.logtxt.text.toString().trim()
+            val password = bind.ed3.text.toString().trim()
+
+            if (email.isEmpty() || password.isEmpty()) {
+                // Tampilkan pesan kesalahan jika kolom email atau password kosong
+                AlertDialog.Builder(this)
+                    .setTitle("Error")
+                    .setMessage("Kolom email dan password harus diisi.")
+                    .setPositiveButton("OK", null)
+                    .show()
+            } else {
+                auth.signInWithEmailAndPassword(email, password)
+                    .addOnCompleteListener(this) { task ->
+                        if (task.isSuccessful) {
+                            // Sign in success, update UI with the signed-in user's information
+                            val user = auth.currentUser
+                            val name = user?.displayName
+                            startActivity(Intent(this, HomePage::class.java).putExtra("name", name))
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            AlertDialog.Builder(this)
+                                .setTitle("Error")
+                                .setMessage("Username atau Password Salah")
+                                .setPositiveButton("OK", null)
+                                .show()
+                        }
+                    }
             }
         }
+
         bind.regisLink.setOnClickListener {
             val intent= Intent(this,MainActivity::class.java)
             startActivity(intent)

@@ -8,10 +8,10 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="PLACEHOLDER" />
-                  <option name="mobileSdkAppId" value="" />
-                  <option name="projectId" value="" />
-                  <option name="projectNumber" value="" />
+                  <option name="appId" value="com.example.firedatabase_assis" />
+                  <option name="mobileSdkAppId" value="1:463231498844:android:c6887ab9f4a963b0fe0499" />
+                  <option name="projectId" value="panturaapp" />
+                  <option name="projectNumber" value="463231498844" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />

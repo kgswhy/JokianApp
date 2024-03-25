@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "463231498844",
+    "project_id": "panturaapp",
+    "storage_bucket": "panturaapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:463231498844:android:c6887ab9f4a963b0fe0499",
+        "android_client_info": {
+          "package_name": "com.example.firedatabase_assis"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDoZ5mosRpr6axp7lX1UXeiD4L1XNl2pg4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
