@@ -1,10 +1,26 @@
 package com.example.firedatabase_assis
 
+import android.app.Activity
+import android.content.Intent
+import android.graphics.Bitmap
 import android.os.Bundle
+import android.provider.MediaStore
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.ImageView
+import android.widget.TextView
+import com.example.firedatabase_assis.ml.Model
+//import com.example.firedatabase_assis.ml.Model
+import org.tensorflow.lite.DataType
+import org.tensorflow.lite.support.common.ops.NormalizeOp
+import org.tensorflow.lite.support.image.ImageProcessor
+import org.tensorflow.lite.support.image.TensorImage
+import org.tensorflow.lite.support.image.ops.ResizeOp
+import org.tensorflow.lite.support.image.ops.TransformToGrayscaleOp
+import org.tensorflow.lite.support.tensorbuffer.TensorBuffer
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -21,6 +37,12 @@ class HomeFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
+    lateinit var selectBtn: Button
+    lateinit var testBtn: Button
+    lateinit var resView: TextView
+    lateinit var imageView: ImageView
+    lateinit var bitmap: Bitmap
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -35,6 +57,71 @@ class HomeFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_home, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        selectBtn = view.findViewById(R.id.selectBtn)
+        testBtn = view.findViewById(R.id.testBtn)
+        resView = view.findViewById(R.id.resView)
+        imageView = view.findViewById(R.id.imageView)
+
+        var labels = requireContext().assets.open("labels.txt").bufferedReader().readLines()
+
+        var imageProcessor = ImageProcessor.Builder()
+            .add(NormalizeOp(0.0f,255.0f))
+            .add(ResizeOp(224,224, ResizeOp.ResizeMethod.BILINEAR))
+            .build()
+
+        selectBtn.setOnClickListener {
+            var intent: Intent = Intent()
+            intent.setAction(Intent.ACTION_GET_CONTENT)
+            intent.setType("image/*")
+            startActivityForResult(intent, 100)
+        }
+
+        testBtn.setOnClickListener {
+
+            var tensorImage = TensorImage(DataType.FLOAT32)
+            tensorImage.load(bitmap)
+
+            tensorImage = imageProcessor.process(tensorImage)
+
+            val model = Model.newInstance(requireContext())
+
+            // Creates inputs for reference.
+            val inputFeature0 = TensorBuffer.createFixedSize(intArrayOf(1, 224, 224, 3), DataType.FLOAT32)
+            inputFeature0.loadBuffer(tensorImage.buffer)
+
+            // Runs model inference and gets result.
+            val outputs = model.process(inputFeature0)
+            val outputFeature0 = outputs.outputFeature0AsTensorBuffer.floatArray
+
+            var maxIdx = 0
+            outputFeature0.forEachIndexed { index, fl ->
+                if(outputFeature0[maxIdx] < fl){
+                    maxIdx = index
+                }
+            }
+
+            resView.text = labels[maxIdx].toString()
+
+            // Releases model resources if no longer used.
+            model.close()
+        }
+
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        val contentResolver = requireContext().contentResolver
+
+        if (requestCode == 100 && resultCode == Activity.RESULT_OK) {
+            var url = data?.data
+            bitmap = MediaStore.Images.Media.getBitmap(contentResolver, url)
+            imageView.setImageBitmap(bitmap)
+        }
     }
 
     companion object {
