@@ -1,4 +1,4 @@
-package com.example.firedatabase_assis
+package com.example.firedatabase_assis.Users.Fragment
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,15 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.firedatabase_assis.databinding.FragmentProfileBinding
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.database.*
+import com.google.firebase.firestore.FirebaseFirestore
 
 class ProfileFragment : Fragment() {
     private var _binding: FragmentProfileBinding? = null
     private val binding get() = _binding!!
 
     private lateinit var auth: FirebaseAuth
-    private lateinit var database: FirebaseDatabase
+    private lateinit var firestore: FirebaseFirestore
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,25 +28,29 @@ class ProfileFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         auth = FirebaseAuth.getInstance()
-        database = FirebaseDatabase.getInstance()
+        firestore = FirebaseFirestore.getInstance()
 
-        // Mendapatkan referensi ke node "users" di Firebase Realtime Database
+        // Mendapatkan UID pengguna yang sedang aktif
         val userId = auth.currentUser?.uid
-        val userRef = database.reference.child("users").child(userId ?: "")
 
-        // Mendapatkan data username dari Firebase Realtime Database
-        userRef.addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                if (snapshot.exists()) {
-                    val username = snapshot.child("username").value.toString()
-                    binding.usernameTextView.text = username
+        if (userId != null) {
+            // Mendapatkan data pengguna dari Cloud Firestore
+            firestore.collection("users").document(userId)
+                .get()
+                .addOnSuccessListener { document ->
+                    if (document != null && document.exists()) {
+                        val username = document.getString("username")
+                        val email = document.getString("email")
+
+                        // Menampilkan data pengguna ke UI
+                        binding.usernameTextView.text = "Username: $username"
+                        binding.emailTextView.text = "Email: $email"
+                    }
                 }
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                // Handle error jika ada
-            }
-        })
+                .addOnFailureListener { exception ->
+                    // Handle error jika ada
+                }
+        }
 
         // Menambahkan listener untuk logout saat tombol logout ditekan
         binding.logoutButton.setOnClickListener {

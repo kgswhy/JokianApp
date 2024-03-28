@@ -7,4 +7,5 @@
     <string name="hello_home_fragment">Hello Home fragment</string>
     <string name="hello_report_fragment">Hello Report fragment</string>
     <string name="hello_profile_fragment">Hello Profile fragment</string>
+    <string name="status_prompt">Pilih Status Penanganan</string>
 </resources>

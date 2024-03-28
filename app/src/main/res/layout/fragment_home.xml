@@ -3,21 +3,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".HomeFragment">
+    tools:context=".Users.Fragment.HomeFragment">
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="500dp"
         android:background="#000"
         android:id="@+id/imageView"/>
-    
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/linLayout"
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/imageView">
-        
+
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
