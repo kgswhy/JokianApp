@@ -38,7 +38,7 @@ class login_form : AppCompatActivity() {
                             // Sign in success, update UI with the signed-in user's information
                             val user = auth.currentUser
                             val name = user?.displayName
-                            startActivity(Intent(this, AdminPage::class.java).putExtra("name", name))
+                            startActivity(Intent(this, HomePage::class.java).putExtra("name", name))
                         } else {
                             // If sign in fails, display a message to the user.
                             AlertDialog.Builder(this)
