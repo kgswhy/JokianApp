@@ -1,81 +1,98 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
-    tools:context=".Users.Fragment.ReportFragment">
+    tools:context=".Users.Fragment.ReportFragment"
+    android:padding="20dp">
+
+
+    <ImageView
+        android:id="@+id/imageViewPhoto"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:background="#000" />
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:id="@+id/linLayout"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Form Laporan"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            android:layout_gravity="center"
-            android:layout_marginBottom="16dp"
-            android:fontFamily="@font/montserrat_extrabold"/>
-
-        <EditText
-            android:id="@+id/editTextName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Nama Pelapor"
-            android:fontFamily="@font/montserrat_medium"/>
-
-        <EditText
-            android:id="@+id/editTextLocation"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Lokasi"
-            android:fontFamily="@font/montserrat_medium"/>
-
-        <EditText
-            android:id="@+id/editTextDescription"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Keterangan"
-            android:fontFamily="@font/montserrat_medium"/>
-
-        <EditText
-            android:id="@+id/editTingkatKerusakan"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Sedang"
-            android:fontFamily="@font/montserrat_medium"/>
-
-        <ImageView
-            android:id="@+id/imageViewPhoto"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:scaleType="fitCenter" />
+        android:layout_below="@+id/imageViewPhoto"
+        android:orientation="horizontal">
 
         <Button
             android:id="@+id/buttonAddPhoto"
             android:layout_width="wrap_content"
-            android:layout_height="42dp"
+            android:layout_marginTop="10dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
             android:text="Tambah Foto"
-            android:fontFamily="@font/montserrat_medium"/>
+            android:fontFamily="@font/montserrat_medium" />
 
-        <EditText
-            android:id="@+id/editTextDate"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Tanggal Laporan"
-            android:focusable="false"
-            android:fontFamily="@font/montserrat_medium"/>
 
-        <Button
-            android:id="@+id/buttonSubmit"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Kirim Laporan"
-            android:fontFamily="@font/montserrat_medium"/>
     </LinearLayout>
-</ScrollView>
+
+    <EditText
+        android:id="@+id/editTextName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/linLayout"
+        android:hint="Nama Pelapor"
+        android:layout_marginTop="16dp"
+        android:padding="10dp"
+        android:background="@drawable/edittext_rounded_background"
+        android:fontFamily="@font/montserrat" />
+
+    <EditText
+        android:id="@+id/editTextLocation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editTextName"
+        android:hint="Lokasi"
+        android:layout_marginTop="16dp"
+        android:padding="10dp"
+        android:background="@drawable/edittext_rounded_background"
+        android:fontFamily="@font/montserrat" />
+
+    <EditText
+        android:id="@+id/editTextDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editTextLocation"
+        android:hint="Keterangan"
+        android:layout_marginTop="16dp"
+        android:padding="10dp"
+        android:background="@drawable/edittext_rounded_background"
+        android:fontFamily="@font/montserrat" />
+
+    <EditText
+        android:id="@+id/editTingkatKerusakan"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editTextDescription"
+        android:hint="Tingkat Kerusakan"
+        android:layout_marginTop="16dp"
+        android:padding="10dp"
+        android:background="@drawable/edittext_rounded_background"
+        android:fontFamily="@font/montserrat" />
+
+    <EditText
+        android:id="@+id/editTextDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editTingkatKerusakan"
+        android:hint="Tanggal Laporan"
+        android:layout_marginTop="16dp"
+        android:padding="10dp"
+        android:background="@drawable/edittext_rounded_background"
+        android:fontFamily="@font/montserrat" />
+    <Button
+        android:id="@+id/buttonSubmit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Kirim Laporan"
+        android:layout_below="@+id/editTextDate"
+        android:fontFamily="@font/montserrat_medium" />
+
+</RelativeLayout>
