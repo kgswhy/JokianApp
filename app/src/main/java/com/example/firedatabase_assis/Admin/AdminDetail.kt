@@ -1,42 +1,44 @@
 package com.example.firedatabase_assis.Admin
 
 import android.os.Bundle
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
+import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.firedatabase_assis.R
 
 class AdminDetail : AppCompatActivity() {
 
-    val items = arrayOf("Menunggu", "Sedang Pengerjaan", "Selesai")
-
-    lateinit var autoCompleteTextView: AutoCompleteTextView
-
-    lateinit var adapterItems: ArrayAdapter<String>
-
+    lateinit var submitBtn: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_admin_detail)
 
-        // Initialize the AutoCompleteTextView
-        autoCompleteTextView = findViewById(R.id.autoCompleteText)
+        val items = arrayOf("Menunggu", "Sedang Pengerjaan", "Selesai")
 
-        // Initialize the ArrayAdapter with the array of items
-        adapterItems = ArrayAdapter<String>(this, R.layout.dropdown_item)
+        val autoCompleteTextView: AutoCompleteTextView = findViewById(R.id.autoCompleteTextView)
 
-        // Set the adapter to the AutoCompleteTextView
+        val adapterItems: ArrayAdapter<String> = ArrayAdapter<String>(this, R.layout.dropdown_item, items)
+
         autoCompleteTextView.setAdapter(adapterItems)
 
-        autoCompleteTextView.setOnItemClickListener { adapterView, view, position, id ->
-            // Your code here
-            // For example, to get the selected item:
-            val selectedItem = adapterView.getItemAtPosition(position) as String
-            Toast.makeText(this, "Item: $selectedItem", Toast.LENGTH_SHORT).show()
-            // Use the selectedItem as needed
+        submitBtn = findViewById(R.id.submitBtn)
+
+        var selectedItem : String
+
+        autoCompleteTextView.onItemClickListener = AdapterView.OnItemClickListener {
+                adapterView, view, i, l ->
+
+            val selectedItem = adapterView.getItemAtPosition(i) as String
+            //Toast.makeText(this, "Item: $selectedItem", Toast.LENGTH_SHORT).show()
         }
 
+        submitBtn.setOnClickListener() {
+
+        }
 
     }
 }

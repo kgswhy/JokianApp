@@ -17,8 +17,6 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import com.example.firedatabase_assis.ARG_PARAM1
-import com.example.firedatabase_assis.ARG_PARAM2
 import com.example.firedatabase_assis.R
 import com.example.firedatabase_assis.ml.Model
 import com.google.android.gms.tasks.OnCompleteListener
@@ -49,6 +47,13 @@ class ReportFragment : Fragment() {
 
     private val calendar = Calendar.getInstance()
 
+    private lateinit var labels : List<String>
+
+    var imageProcessor = ImageProcessor.Builder()
+        .add(NormalizeOp(0.0f, 255.0f))
+        .add(ResizeOp(224, 224, ResizeOp.ResizeMethod.BILINEAR))
+        .build()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -62,6 +67,8 @@ class ReportFragment : Fragment() {
         editTextDate = view.findViewById(R.id.editTextDate)
         buttonSubmit = view.findViewById(R.id.buttonSubmit)
         firestore = FirebaseFirestore.getInstance()
+
+        labels = requireContext().assets.open("labels.txt").bufferedReader().readLines()
 
         editTextDate.setOnClickListener {
             showDatePicker()
@@ -99,6 +106,36 @@ class ReportFragment : Fragment() {
         datePickerDialog.show()
     }
 
+    private fun getTingkatKerusakan() : String {
+        var tensorImage = TensorImage(DataType.FLOAT32)
+        tensorImage.load(bitmap)
+
+        tensorImage = imageProcessor.process(tensorImage)
+
+        val model = Model.newInstance(requireContext())
+
+        // Creates inputs for reference.
+        val inputFeature0 =
+            TensorBuffer.createFixedSize(intArrayOf(1, 224, 224, 3), DataType.FLOAT32)
+        inputFeature0.loadBuffer(tensorImage.buffer)
+
+        // Runs model inference and gets result.
+        val outputs = model.process(inputFeature0)
+        val outputFeature0 = outputs.outputFeature0AsTensorBuffer.floatArray
+
+        var maxIdx = 0
+        outputFeature0.forEachIndexed { index, fl ->
+            if(outputFeature0[maxIdx] < fl){
+                maxIdx = index
+            }
+        }
+
+        val result = labels[maxIdx].toString()
+
+        model.close()
+        return result
+    }
+
     private fun updateDateEditText() {
         // Memperbarui EditText untuk menampilkan tanggal yang dipilih
         val dateFormat = "dd/MM/yyyy"
@@ -127,6 +164,7 @@ class ReportFragment : Fragment() {
         // Menyiapkan data laporan
         val status = "Menunggu" // Anda dapat mengambil status dari spinner jika diperlukan
         val userId = FirebaseAuth.getInstance().currentUser?.uid
+        val tingkatKerusakan = getTingkatKerusakan()
 
         val report = hashMapOf(
             "nama_pelapor" to name,
@@ -190,6 +228,6 @@ class ReportFragment : Fragment() {
 
         fun newInstance(): ReportFragment {
             return ReportFragment()
+            }
         }
-    }
 }

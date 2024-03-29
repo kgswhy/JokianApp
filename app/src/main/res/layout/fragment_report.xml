@@ -3,14 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp">
+    android:padding="16dp"
+    tools:context=".Users.Fragment.ReportFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <!-- Judul -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -18,31 +18,36 @@
             android:textSize="24sp"
             android:textStyle="bold"
             android:layout_gravity="center"
-            android:layout_marginBottom="16dp" />
+            android:layout_marginBottom="16dp"
+            android:fontFamily="@font/montserrat_extrabold"/>
 
         <EditText
             android:id="@+id/editTextName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Nama Pelapor" />
+            android:hint="Nama Pelapor"
+            android:fontFamily="@font/montserrat_medium"/>
 
         <EditText
             android:id="@+id/editTextLocation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Lokasi" />
+            android:hint="Lokasi"
+            android:fontFamily="@font/montserrat_medium"/>
 
         <EditText
             android:id="@+id/editTextDescription"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Keterangan" />
+            android:hint="Keterangan"
+            android:fontFamily="@font/montserrat_medium"/>
 
         <EditText
             android:id="@+id/editTingkatKerusakan"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Sedang" />
+            android:hint="Sedang"
+            android:fontFamily="@font/montserrat_medium"/>
 
         <ImageView
             android:id="@+id/imageViewPhoto"
@@ -55,19 +60,22 @@
             android:id="@+id/buttonAddPhoto"
             android:layout_width="wrap_content"
             android:layout_height="42dp"
-            android:text="Tambah Foto" />
+            android:text="Tambah Foto"
+            android:fontFamily="@font/montserrat_medium"/>
 
         <EditText
             android:id="@+id/editTextDate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Tanggal Laporan"
-            android:focusable="false" />
+            android:focusable="false"
+            android:fontFamily="@font/montserrat_medium"/>
 
         <Button
             android:id="@+id/buttonSubmit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Kirim Laporan" />
+            android:text="Kirim Laporan"
+            android:fontFamily="@font/montserrat_medium"/>
     </LinearLayout>
 </ScrollView>

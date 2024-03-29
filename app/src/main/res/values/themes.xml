@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.Firedatabase_assis" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="Theme.Firedatabase_assis" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/purple_500</item>
         <item name="colorPrimaryVariant">@color/purple_700</item>
@@ -14,6 +14,7 @@
         <!-- Customize your theme here. -->
         <item name="android:fontFamily">@font</item>
     </style>
+
 
     <style name="Theme.BottomNavigation" parent="Theme.Firedatabase_assis"></style>
 

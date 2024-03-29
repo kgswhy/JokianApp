@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Pantura</string>
+    <string name="app_name">Road Ranger</string>
     <string name="nav_home">Home</string>
     <string name="nav_report">Report</string>
     <string name="nav_profile">Profile</string>
@@ -8,7 +8,7 @@
     <string name="hello_profile_fragment">Hello Profile fragment</string>
     <string name="status_prompt">Pilih Status Penanganan</string>
 
-    <string name="spinner_prompt">Choose an option</string>
+    <string name="dropdown_label">Choose an option</string>
     <string-array name="dropdown_items">
         <item>Option 1</item>
         <item>Option 2</item>

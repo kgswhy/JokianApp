@@ -11,4 +11,6 @@
     <color name="header">#527087</color>
     <color name="success">#73e362</color>
     <color name="disabled">#D9D9D9</color>
+    <color name="button">#CBB279</color>
+    <color name="process">#EDD500</color>
 </resources>
