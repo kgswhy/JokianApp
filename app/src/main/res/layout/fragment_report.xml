@@ -38,6 +38,19 @@
             android:layout_height="wrap_content"
             android:hint="Keterangan" />
 
+        <EditText
+            android:id="@+id/editTingkatKerusakan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Sedang" />
+
+        <ImageView
+            android:id="@+id/imageViewPhoto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:scaleType="fitCenter" />
+
         <Button
             android:id="@+id/buttonAddPhoto"
             android:layout_width="wrap_content"
