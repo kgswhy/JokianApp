@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
+import com.example.firedatabase_assis.Admin.AdminHomePage
 //import com.example.firedatabase_assis.Admin.Fragment.AdminHomePage
 import com.example.firedatabase_assis.Auth.RegisterActivity
 import com.example.firedatabase_assis.Users.HomePage
@@ -53,8 +54,7 @@ class LoginForm : AppCompatActivity() {
                                     if (document != null) {
                                         val role = document.getString("roleUser")
                                         if (role == "1") {
-                                            // Jika roleUser adalah admin, arahkan ke halaman admin
-//                                            startActivity(Intent(this, AdminHomePage::class.java))
+                                            startActivity(Intent(this, AdminHomePage::class.java))
                                         } else {
                                             // Jika roleUser adalah user biasa, arahkan ke halaman user
                                             startActivity(Intent(this, HomePage::class.java))

@@ -15,7 +15,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/linLayout"
-        android:layout_centerHorizontal="true"
         android:layout_below="@+id/imageView">
 
         <Button
@@ -23,12 +22,14 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="10dp"
             android:text="Select Image"
-            android:id="@+id/selectBtn"/>
+            android:id="@+id/selectBtn"
+            android:fontFamily="@font/montserrat_medium"/>
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Test"
-            android:id="@+id/testBtn"/>
+            android:id="@+id/testBtn"
+            android:fontFamily="@font/montserrat_medium"/>
     </LinearLayout>
 
     <TextView
@@ -38,6 +39,8 @@
         android:textSize="20dp"
         android:text="Prediction"
         android:layout_marginLeft="10dp"
-        android:layout_below="@+id/linLayout"/>
+        android:layout_below="@+id/linLayout"
+        android:fontFamily="@font/montserrat_medium"
+        android:textColor="@color/black"/>
 
 </RelativeLayout>
