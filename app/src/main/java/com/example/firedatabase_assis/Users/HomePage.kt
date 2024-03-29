@@ -1,10 +1,10 @@
 package com.example.firedatabase_assis.Users
 
+import com.example.firedatabase_assis.Users.Fragment.ProfileFragment
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.example.firedatabase_assis.Users.Fragment.HomeFragment
-import com.example.firedatabase_assis.Users.Fragment.ProfileFragment
 import com.example.firedatabase_assis.R
 import com.example.firedatabase_assis.Users.Fragment.ReportFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView

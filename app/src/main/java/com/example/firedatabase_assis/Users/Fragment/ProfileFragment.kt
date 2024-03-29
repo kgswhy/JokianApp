@@ -1,13 +1,18 @@
 package com.example.firedatabase_assis.Users.Fragment
 
+import android.content.ContentValues.TAG
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import com.example.firedatabase_assis.databinding.FragmentProfileBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.QuerySnapshot
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 
 class ProfileFragment : Fragment() {
     private var _binding: FragmentProfileBinding? = null
@@ -28,27 +33,33 @@ class ProfileFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         auth = FirebaseAuth.getInstance()
-        firestore = FirebaseFirestore.getInstance()
+        firestore = Firebase.firestore
 
         // Mendapatkan UID pengguna yang sedang aktif
         val userId = auth.currentUser?.uid
 
         if (userId != null) {
-            // Mendapatkan data pengguna dari Cloud Firestore
-            firestore.collection("users").document(userId)
+            // Mendapatkan data pengguna dari Cloud Firestore berdasarkan userId
+            firestore.collection("users")
+                .whereEqualTo("userId", userId)
                 .get()
-                .addOnSuccessListener { document ->
-                    if (document != null && document.exists()) {
+                .addOnSuccessListener { documents ->
+                    for (document in documents) {
                         val username = document.getString("username")
                         val email = document.getString("email")
 
                         // Menampilkan data pengguna ke UI
                         binding.usernameTextView.text = "Username: $username"
                         binding.emailTextView.text = "Email: $email"
+
+                        // Log jika data berhasil diambil
+                        Log.d(TAG, "Data berhasil diambil: Username: $username, Email: $email")
                     }
                 }
                 .addOnFailureListener { exception ->
                     // Handle error jika ada
+                    // Misalnya, mencetak pesan kesalahan untuk debugging
+                    Log.e(TAG, "Error retrieving user data: $exception")
                 }
         }
 

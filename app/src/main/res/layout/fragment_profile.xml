@@ -1,24 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:paddingStart="20dp"
+    android:paddingEnd="20dp"
+    android:paddingTop="40dp"
+    android:paddingBottom="20dp"
+    android:background="@color/white"
+    tools:context=".Users.Fragment.ProfileFragment">
 
+    <!-- TextView untuk menampilkan username -->
     <TextView
         android:id="@+id/usernameTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="18sp"
+        android:textColor="@color/black"
+        android:text="Username: "
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="100dp" />
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/montserrat"/>
 
+    <!-- TextView untuk menampilkan email -->
     <TextView
         android:id="@+id/emailTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="18sp"
+        android:textColor="@color/black"
+        android:text="Email: "
         android:layout_below="@id/usernameTextView"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp" />
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/montserrat"/>
 
+    <!-- Tombol untuk logout -->
     <Button
         android:id="@+id/logoutButton"
         android:layout_width="wrap_content"
@@ -26,6 +43,8 @@
         android:text="Logout"
         android:layout_below="@id/emailTextView"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp" />
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/montserrat_medium"
+        android:backgroundTint="@color/teal_200"/>
 
 </RelativeLayout>
