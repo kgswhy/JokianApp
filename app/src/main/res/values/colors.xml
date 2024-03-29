@@ -10,4 +10,5 @@
     <color name="background">#F0F4F3</color>
     <color name="header">#527087</color>
     <color name="success">#73e362</color>
+    <color name="disabled">#D9D9D9</color>
 </resources>

@@ -12,13 +12,10 @@
             android:name=".Users.Fragment.HomeFragment"
             android:exported="false" />
         <activity
-            android:name=".Admin.Fragment.AdminDetailFragment"
-            android:exported="false" />
-        <activity
-            android:name=".Admin.Fragment.AdminHomeFragment"
-            android:exported="false" />
-        <activity
             android:name=".Admin.AdminHomePage"
+            android:exported="false" />
+        <activity
+            android:name=".Admin.AdminDetail"
             android:exported="false" />
         <activity
             android:name=".Auth.RegisterActivity"
