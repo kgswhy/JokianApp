@@ -5,8 +5,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
 import com.example.firedatabase_assis.Admin.AdminHomePage
-//import com.example.firedatabase_assis.Admin.Fragment.AdminHomePage
-import com.example.firedatabase_assis.Auth.RegisterActivity
 import com.example.firedatabase_assis.Users.HomePage
 import com.example.firedatabase_assis.databinding.ActivityLoginFormBinding
 import com.google.firebase.auth.FirebaseAuth
@@ -46,37 +44,46 @@ class LoginForm : AppCompatActivity() {
                             // Sign in success, update UI with the signed-in user's information
                             val user = auth.currentUser
                             val uid = user?.uid
-
-                            // Periksa roleUser dari Firestore
-                            firestore.collection("users").document(uid!!)
-                                .get()
-                                .addOnSuccessListener { document ->
-                                    if (document != null) {
-                                        val role = document.getString("roleUser")
-                                        if (role == "1") {
-                                            startActivity(Intent(this, AdminHomePage::class.java))
+                            if (uid != null) {
+                                // Periksa roleUser dari Firestore berdasarkan userId
+                                firestore.collection("users").whereEqualTo("userId", uid)
+                                    .get()
+                                    .addOnSuccessListener { querySnapshot ->
+                                        if (!querySnapshot.isEmpty) {
+                                            val document = querySnapshot.documents[0]
+                                            val role = document.getString("roleUser")
+                                            if (role == "1") {
+                                                startActivity(Intent(this, AdminHomePage::class.java))
+                                            } else {
+                                                // Jika roleUser adalah user biasa, arahkan ke halaman user
+                                                startActivity(Intent(this, HomePage::class.java))
+                                            }
+                                            finish() // Menutup activity saat ini setelah berhasil login
                                         } else {
-                                            // Jika roleUser adalah user biasa, arahkan ke halaman user
-                                            startActivity(Intent(this, HomePage::class.java))
+                                            // Jika dokumen tidak ditemukan, tampilkan pesan kesalahan
+                                            AlertDialog.Builder(this)
+                                                .setTitle("Error")
+                                                .setMessage("Data pengguna tidak ditemukan.")
+                                                .setPositiveButton("OK", null)
+                                                .show()
                                         }
-                                        finish() // Menutup activity saat ini setelah berhasil login
-                                    } else {
-                                        // Jika dokumen tidak ada, tampilkan pesan kesalahan
+                                    }
+                                    .addOnFailureListener { exception ->
+                                        // Handle error jika terjadi kegagalan saat mengambil data dari Firestore
                                         AlertDialog.Builder(this)
                                             .setTitle("Error")
-                                            .setMessage("Data pengguna tidak ditemukan.")
+                                            .setMessage("Gagal memeriksa roleUser: ${exception.message}")
                                             .setPositiveButton("OK", null)
                                             .show()
                                     }
-                                }
-                                .addOnFailureListener { exception ->
-                                    // Handle error jika terjadi kegagalan saat mengambil data dari Firestore
-                                    AlertDialog.Builder(this)
-                                        .setTitle("Error")
-                                        .setMessage("Gagal memeriksa roleUser: ${exception.message}")
-                                        .setPositiveButton("OK", null)
-                                        .show()
-                                }
+                            } else {
+                                // Jika UID pengguna tidak tersedia, tampilkan pesan kesalahan
+                                AlertDialog.Builder(this)
+                                    .setTitle("Error")
+                                    .setMessage("UID pengguna tidak tersedia.")
+                                    .setPositiveButton("OK", null)
+                                    .show()
+                            }
                         } else {
                             // If sign in fails, display a message to the user.
                             AlertDialog.Builder(this)
