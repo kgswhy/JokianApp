@@ -10,27 +10,19 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.firedatabase_assis.R
-import com.example.firedatabase_assis.ml.Model
-import org.tensorflow.lite.DataType
-import org.tensorflow.lite.support.common.ops.NormalizeOp
-import org.tensorflow.lite.support.image.ImageProcessor
-import org.tensorflow.lite.support.image.TensorImage
-import org.tensorflow.lite.support.image.ops.ResizeOp
-import org.tensorflow.lite.support.tensorbuffer.TensorBuffer
-
-/**
- * A simple [Fragment] subclass.
- * Use the [HomeFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
+import com.squareup.picasso.Picasso
 
 class HomeFragment : Fragment() {
-    // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+    lateinit var inflaterPublic: LayoutInflater
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,13 +32,61 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false)
+        val view = inflater.inflate(R.layout.fragment_home, container, false)
+        inflaterPublic = inflater
+
+        getAndSetDataLaporan()
+
+        return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+    }
+
+    private fun getAndSetDataLaporan() {
+        val db = FirebaseFirestore.getInstance()
+        val laporanCollection = db.collection("laporan")
+
+        laporanCollection
+            .whereEqualTo("userId", FirebaseAuth.getInstance().currentUser?.uid)
+            .get()
+            .addOnSuccessListener { documents ->
+            for (document in documents) {
+                val imageurl = document.getString("image_url") ?: continue
+
+                val loc = document.getString("lokasi")
+                val name = document.getString("nama_pelapor")
+                val status = document.getString("status_penanganan")
+                val date = document.getString("tanggal_laporan")
+
+                val laporanBody = view?.findViewById<View>(R.id.itemBody) as ViewGroup
+                val linearLayout = inflaterPublic.inflate(R.layout.layout_item_user, laporanBody, false) as LinearLayout
+                val imageView = linearLayout.findViewById<ImageView>(R.id.imageView)
+                val tvLocation = linearLayout.findViewById<TextView>(R.id.locationTextView)
+                val tvName = linearLayout.findViewById<TextView>(R.id.usernameTextView)
+                val tvStatus = linearLayout.findViewById<TextView>(R.id.badgeStatus)
+                val tvDate = linearLayout.findViewById<TextView>(R.id.dateTextView)
+
+                tvLocation.text = loc
+                tvName.text = name
+                tvStatus.text = status
+                tvDate.text = date
+
+                Picasso.get()
+                    .load(imageurl)
+                    .into(imageView)
+
+                laporanBody.addView(linearLayout)
+            }
+        }.addOnFailureListener { e ->
+            Toast.makeText(
+                requireContext(),
+                "Error: ${e.message}",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
     }
 
 }

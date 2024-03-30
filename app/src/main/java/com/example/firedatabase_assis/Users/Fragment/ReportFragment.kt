@@ -174,6 +174,22 @@ class ReportFragment : Fragment() {
             return null
         }
     }
+    fun formatDate(inputDate: String): String? {
+        // Specify the input date format matching the provided date string
+        val inputFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+        // Specify the output date format
+        val outputFormat = SimpleDateFormat("dd MMMM yyyy", Locale.getDefault())
+
+        return try {
+            // Parse the input date string into a Date object
+            val date = inputFormat.parse(inputDate)
+            // Format the Date object into the output format and return the result
+            date?.let { outputFormat.format(it) }
+        } catch (e: Exception) {
+            e.printStackTrace()
+            null
+        }
+    }
 
     // Proses laporan saat tombol submit ditekan
     private fun processReport() {
@@ -181,7 +197,7 @@ class ReportFragment : Fragment() {
         val laporanId = generateRandomString(20)
         val location = editTextLocation.text.toString().trim()
         val description = editTextDescription.text.toString().trim()
-        val date = editTextDate.text.toString().trim()
+        val date = formatDate(editTextDate.text.toString().trim())
         val tingkatKerusakan = getTingkatKerusakan()
         val status = "Menunggu"
 
