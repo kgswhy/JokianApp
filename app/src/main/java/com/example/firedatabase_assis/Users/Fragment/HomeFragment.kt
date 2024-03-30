@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -56,6 +57,7 @@ class HomeFragment : Fragment() {
             for (document in documents) {
                 val imageurl = document.getString("image_url") ?: continue
 
+                val laporanId = document.getString("laporanId")
                 val loc = document.getString("lokasi")
                 val name = document.getString("nama_pelapor")
                 val status = document.getString("status_penanganan")
@@ -68,6 +70,8 @@ class HomeFragment : Fragment() {
                 val tvName = linearLayout.findViewById<TextView>(R.id.usernameTextView)
                 val tvStatus = linearLayout.findViewById<TextView>(R.id.badgeStatus)
                 val tvDate = linearLayout.findViewById<TextView>(R.id.dateTextView)
+                val editBtn = linearLayout.findViewById<ImageButton>(R.id.editBtn)
+                val deleteBtn = linearLayout.findViewById<ImageButton>(R.id.deleteBtn)
 
                 tvLocation.text = loc
                 tvName.text = name

@@ -42,9 +42,9 @@
                 android:layout_width="160dp"
                 android:layout_height="160dp"
                 android:layout_margin="20dp"
+                android:src="@drawable/no_image"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                android:src="@drawable/satis"
                 android:clipToOutline="true"
                 android:outlineProvider="background"
                 android:background="@drawable/rounded_corner"
@@ -78,11 +78,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
-                    android:text="Nabeel Muhammad "
                     android:textColor="@color/header"
                     android:textSize="11sp"
                     android:fontFamily="@font/montserrat_medium"
-                    android:id="@+id/usernameTextView"/>
+                    android:id="@+id/usernameTextView"
+                    android:maxLines="1"/>
 
             </androidx.cardview.widget.CardView>
 
@@ -114,7 +114,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
-                    android:text="Jalan Rusak Betul"
                     android:textColor="@color/header"
                     android:textSize="11sp"
                     android:fontFamily="@font/montserrat_medium"
@@ -150,7 +149,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
-                    android:text="Rendah"
                     android:textColor="@color/header"
                     android:textSize="11sp"
                     android:fontFamily="@font/montserrat_medium"
@@ -186,11 +184,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
-                    android:text="Jakarta Barat"
                     android:textColor="@color/header"
                     android:textSize="11sp"
                     android:fontFamily="@font/montserrat_medium"
-                    android:id="@+id/locationTextView"/>
+                    android:id="@+id/locationTextView"
+                    android:maxLines="1"/>
 
             </androidx.cardview.widget.CardView>
 
