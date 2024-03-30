@@ -88,7 +88,7 @@ class LoginForm : AppCompatActivity() {
                             // If sign in fails, display a message to the user.
                             AlertDialog.Builder(this)
                                 .setTitle("Error")
-                                .setMessage("Username atau Password Salah")
+                                .setMessage("Email atau Password Salah")
                                 .setPositiveButton("OK", null)
                                 .show()
                         }

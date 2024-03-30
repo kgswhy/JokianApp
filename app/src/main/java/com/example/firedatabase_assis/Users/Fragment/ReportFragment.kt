@@ -3,6 +3,7 @@ import android.app.Activity
 import android.app.DatePickerDialog
 import android.app.ProgressDialog
 import android.content.Intent
+import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
@@ -18,11 +19,19 @@ import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.example.firedatabase_assis.R
+import com.example.firedatabase_assis.ml.Model
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
+import org.tensorflow.lite.DataType
+import org.tensorflow.lite.support.common.ops.NormalizeOp
+import org.tensorflow.lite.support.image.ImageProcessor
+import org.tensorflow.lite.support.image.TensorImage
+import org.tensorflow.lite.support.image.ops.ResizeOp
+import org.tensorflow.lite.support.tensorbuffer.TensorBuffer
+import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
@@ -42,6 +51,15 @@ class ReportFragment : Fragment() {
     private val calendar = Calendar.getInstance()
     private var selectedImageUri: Uri? = null
 
+    private lateinit var labels : List<String>
+
+    private var bitmap: Bitmap? = null
+
+    var imageProcessor = ImageProcessor.Builder()
+        .add(NormalizeOp(0.0f, 255.0f))
+        .add(ResizeOp(224, 224, ResizeOp.ResizeMethod.BILINEAR))
+        .build()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -56,6 +74,8 @@ class ReportFragment : Fragment() {
         imageViewPhoto = view.findViewById(R.id.imageViewPhoto)
         firestore = FirebaseFirestore.getInstance()
         storageReference = FirebaseStorage.getInstance().reference
+
+        labels = requireContext().assets.open("labels.txt").bufferedReader().readLines()
 
         // Set OnClickListener untuk editTextDate
         editTextDate.setOnClickListener {
@@ -73,6 +93,36 @@ class ReportFragment : Fragment() {
         }
 
         return view
+    }
+
+    private fun getTingkatKerusakan() : String {
+        var tensorImage = TensorImage(DataType.FLOAT32)
+        tensorImage.load(bitmap)
+
+        tensorImage = imageProcessor.process(tensorImage)
+
+        val model = Model.newInstance(requireContext())
+
+        // Creates inputs for reference.
+        val inputFeature0 =
+            TensorBuffer.createFixedSize(intArrayOf(1, 224, 224, 3), DataType.FLOAT32)
+        inputFeature0.loadBuffer(tensorImage.buffer)
+
+        // Runs model inference and gets result.
+        val outputs = model.process(inputFeature0)
+        val outputFeature0 = outputs.outputFeature0AsTensorBuffer.floatArray
+
+        var maxIdx = 0
+        outputFeature0.forEachIndexed { index, fl ->
+            if(outputFeature0[maxIdx] < fl){
+                maxIdx = index
+            }
+        }
+
+        val result = labels[maxIdx].toString()
+
+        model.close()
+        return result
     }
 
     // Menampilkan date picker untuk memilih tanggal
@@ -100,16 +150,38 @@ class ReportFragment : Fragment() {
         editTextDate.setText(sdf.format(calendar.time))
     }
 
+    fun generateRandomString(length: Int): String {
+        val allowedChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
+        return (1..length)
+            .map { allowedChars.random() }
+            .joinToString("")
+    }
+
+    private fun getUserName(uid: String?) : String? {
+        var result: String? = null
+        if (uid != null){
+            firestore.collection("users").document(uid).get().addOnSuccessListener { document ->
+                if (document != null && document.exists()) {
+                    val name = document.getString("name")
+                    result = name
+                }
+            }.addOnFailureListener { exception ->
+                showAlert("Error", "get failed with  ${exception.message}")
+            }
+        }
+        return result
+    }
+
     // Proses laporan saat tombol submit ditekan
     private fun processReport() {
-        val name = editTextName.text.toString().trim()
+        val userId = FirebaseAuth.getInstance().currentUser?.uid
+        val laporanId = generateRandomString(20)
+        val name = getUserName(userId)
         val location = editTextLocation.text.toString().trim()
         val description = editTextDescription.text.toString().trim()
         val date = editTextDate.text.toString().trim()
-        val status = "Menunggu" // Anda dapat mengambil status dari spinner jika diperlukan
-
-        // Mendapatkan UID pengguna yang sedang aktif
-        val userId = FirebaseAuth.getInstance().currentUser?.uid
+        val tingkatKerusakan = getTingkatKerusakan()
+        val status = "Menunggu"
 
         // Memeriksa apakah ada foto yang dipilih
         if (selectedImageUri == null) {
@@ -129,14 +201,15 @@ class ReportFragment : Fragment() {
                 imageRef.downloadUrl.addOnSuccessListener { uri ->
                     // Membuat objek HashMap untuk menyimpan data laporan
                     val report = hashMapOf(
-                        "laporanId" to userId,
+                        "laporanId" to laporanId,
                         "nama_pelapor" to name,
                         "lokasi" to location,
                         "keterangan" to description,
+                        "tingkat_kerusakan" to tingkatKerusakan,
                         "tanggal_laporan" to date,
                         "status_penanganan" to status,
-                        "userId" to userId, // Menambahkan ID pengguna yang melaporkan laporan
-                        "image_url" to uri.toString() // Menambahkan URL gambar ke dalam data laporan
+                        "userId" to userId,
+                        "image_url" to uri.toString()
                     )
 
                     // Menyimpan data laporan ke Firestore
@@ -189,7 +262,14 @@ class ReportFragment : Fragment() {
                 // Tampilkan gambar yang dipilih ke dalam ImageView
                 showImagePreview(uri)
                 // Tampilkan pesan bahwa gambar telah dipilih
-                Toast.makeText(requireContext(), "Gambar dipilih: $selectedImageUri", Toast.LENGTH_SHORT).show()
+                //Toast.makeText(requireContext(), "Gambar dipilih: $selectedImageUri", Toast.LENGTH_SHORT).show()
+                try {
+                    selectedImageUri?.let {
+                        bitmap = MediaStore.Images.Media.getBitmap(requireContext().contentResolver, it)
+                    }
+                } catch (e: IOException) {
+                    e.printStackTrace()
+                }
             }
         }
     }

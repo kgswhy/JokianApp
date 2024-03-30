@@ -37,8 +37,8 @@ class RegisterActivity : AppCompatActivity() {
                             if (userId != null) {
                                 // Simpan informasi pengguna beserta UID ke dalam Firestore
                                 val user = hashMapOf(
-                                    "userId" to userId, // Simpan UID pengguna
-                                    "username" to name,
+                                    "userId" to userId,
+                                    "name" to name,
                                     "email" to email,
                                     "password" to password,
                                     "roleUser" to "0"
