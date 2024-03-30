@@ -9,6 +9,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Firedatabase_assis">
         <activity
+            android:name=".Users.EditLaporan"
+            android:exported="false" />
+        <activity
             android:name=".Admin.AdminHomePage"
             android:exported="false" />
         <activity

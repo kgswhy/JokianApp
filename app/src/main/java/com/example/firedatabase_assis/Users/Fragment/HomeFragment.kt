@@ -14,8 +14,11 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
+import com.example.firedatabase_assis.Admin.AdminDetail
 import com.example.firedatabase_assis.R
+import com.example.firedatabase_assis.Users.EditLaporan
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.squareup.picasso.Picasso
@@ -72,6 +75,13 @@ class HomeFragment : Fragment() {
                 val tvDate = linearLayout.findViewById<TextView>(R.id.dateTextView)
                 val editBtn = linearLayout.findViewById<ImageButton>(R.id.editBtn)
                 val deleteBtn = linearLayout.findViewById<ImageButton>(R.id.deleteBtn)
+
+                editBtn.setOnClickListener {
+                    Intent(requireContext(), EditLaporan::class.java).also{
+                        it.putExtra("LAPORAN_ID", laporanId)
+                        startActivity(it)
+                    }
+                }
 
                 tvLocation.text = loc
                 tvName.text = name
