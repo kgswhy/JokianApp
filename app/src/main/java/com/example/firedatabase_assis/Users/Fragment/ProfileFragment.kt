@@ -10,7 +10,6 @@ import androidx.fragment.app.Fragment
 import com.example.firedatabase_assis.databinding.FragmentProfileBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.QuerySnapshot
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
@@ -45,7 +44,7 @@ class ProfileFragment : Fragment() {
                 .get()
                 .addOnSuccessListener { documents ->
                     for (document in documents) {
-                        val username = document.getString("username")
+                        val username = document.getString("name")
                         val email = document.getString("email")
 
                         // Menampilkan data pengguna ke UI

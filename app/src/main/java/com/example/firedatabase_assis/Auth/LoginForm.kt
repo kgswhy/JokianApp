@@ -1,9 +1,10 @@
 package com.example.firedatabase_assis.Auth
 
+import android.app.ProgressDialog
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import com.example.firedatabase_assis.Admin.AdminHomePage
 import com.example.firedatabase_assis.Users.HomePage
 import com.example.firedatabase_assis.databinding.ActivityLoginFormBinding
@@ -17,6 +18,7 @@ class LoginForm : AppCompatActivity() {
     private lateinit var bind: ActivityLoginFormBinding
     private lateinit var auth: FirebaseAuth
     private lateinit var firestore: FirebaseFirestore
+    private lateinit var progressDialog: ProgressDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,6 +27,11 @@ class LoginForm : AppCompatActivity() {
 
         auth = Firebase.auth
         firestore = Firebase.firestore
+
+        progressDialog = ProgressDialog(this)
+        progressDialog.setTitle("Logging In")
+        progressDialog.setMessage("Please wait...")
+        progressDialog.setCancelable(false)
 
         bind.btnlogin.setOnClickListener {
             val email = bind.logtxt.text.toString().trim()
@@ -38,8 +45,11 @@ class LoginForm : AppCompatActivity() {
                     .setPositiveButton("OK", null)
                     .show()
             } else {
+                progressDialog.show() // Menampilkan ProgressDialog sebelum memulai proses login
+
                 auth.signInWithEmailAndPassword(email, password)
                     .addOnCompleteListener(this) { task ->
+                        progressDialog.dismiss() // Menyembunyikan ProgressDialog setelah login selesai
                         if (task.isSuccessful) {
                             // Sign in success, update UI with the signed-in user's information
                             val user = auth.currentUser
