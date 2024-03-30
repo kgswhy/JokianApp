@@ -65,7 +65,6 @@ class ReportFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_report, container, false)
-        editTextName = view.findViewById(R.id.editTextName)
         editTextLocation = view.findViewById(R.id.editTextLocation)
         editTextDescription = view.findViewById(R.id.editTextDescription)
         editTextDate = view.findViewById(R.id.editTextDate)
@@ -158,25 +157,28 @@ class ReportFragment : Fragment() {
     }
 
     private fun getUserName(uid: String?) : String? {
-        var result: String? = null
         if (uid != null){
-            firestore.collection("users").document(uid).get().addOnSuccessListener { document ->
-                if (document != null && document.exists()) {
-                    val name = document.getString("name")
-                    result = name
-                }
+            var name: String? = null
+            firestore.collection("users")
+                .whereEqualTo("userId", uid)
+                .get()
+                .addOnSuccessListener { documents ->
+                    for (doc in documents) {
+                        name = doc.getString("name")
+                    }
             }.addOnFailureListener { exception ->
                 showAlert("Error", "get failed with  ${exception.message}")
             }
+            return name
+        }else {
+            return null
         }
-        return result
     }
 
     // Proses laporan saat tombol submit ditekan
     private fun processReport() {
         val userId = FirebaseAuth.getInstance().currentUser?.uid
         val laporanId = generateRandomString(20)
-        val name = getUserName(userId)
         val location = editTextLocation.text.toString().trim()
         val description = editTextDescription.text.toString().trim()
         val date = editTextDate.text.toString().trim()
@@ -189,6 +191,18 @@ class ReportFragment : Fragment() {
             return
         }
 
+        var name : String? = ""
+        firestore.collection("users")
+            .whereEqualTo("userId", userId)
+            .get()
+            .addOnSuccessListener { documents ->
+                for (doc in documents) {
+                    name = doc.getString("name")
+                }
+            }.addOnFailureListener { exception ->
+                showAlert("Error", "get failed with  ${exception.message}")
+            }
+
         // Menampilkan ProgressDialog saat data sedang disimpan
         progressDialog = ProgressDialog.show(requireContext(), "", "Menyimpan...", true)
 
@@ -199,7 +213,7 @@ class ReportFragment : Fragment() {
             .addOnSuccessListener { taskSnapshot ->
                 // Foto berhasil diunggah, mendapatkan URL gambar
                 imageRef.downloadUrl.addOnSuccessListener { uri ->
-                    // Membuat objek HashMap untuk menyimpan data laporan
+
                     val report = hashMapOf(
                         "laporanId" to laporanId,
                         "nama_pelapor" to name,

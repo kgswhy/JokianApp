@@ -10,8 +10,9 @@
     <ImageView
         android:id="@+id/imageViewPhoto"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:background="#000" />
+        android:layout_height="300dp"
+        android:background="#000"
+        android:layout_centerHorizontal="true"/>
 
     <LinearLayout
         android:id="@+id/linLayout"
@@ -32,27 +33,18 @@
 
     </LinearLayout>
 
-    <EditText
-        android:id="@+id/editTextName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/linLayout"
-        android:hint="Nama Pelapor"
-        android:layout_marginTop="16dp"
-        android:padding="10dp"
-        android:background="@drawable/edittext_rounded_background"
-        android:fontFamily="@font/montserrat" />
 
     <EditText
         android:id="@+id/editTextLocation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/editTextName"
+        android:layout_below="@+id/linLayout"
         android:hint="Lokasi"
         android:layout_marginTop="16dp"
         android:padding="10dp"
         android:background="@drawable/edittext_rounded_background"
-        android:fontFamily="@font/montserrat" />
+        android:fontFamily="@font/montserrat"
+        android:maxLines="1"/>
 
     <EditText
         android:id="@+id/editTextDescription"
@@ -63,29 +55,21 @@
         android:layout_marginTop="16dp"
         android:padding="10dp"
         android:background="@drawable/edittext_rounded_background"
-        android:fontFamily="@font/montserrat" />
+        android:fontFamily="@font/montserrat"
+        android:maxLines="2"/>
 
-    <EditText
-        android:id="@+id/editTingkatKerusakan"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/editTextDescription"
-        android:hint="Tingkat Kerusakan"
-        android:layout_marginTop="16dp"
-        android:padding="10dp"
-        android:background="@drawable/edittext_rounded_background"
-        android:fontFamily="@font/montserrat" />
 
     <EditText
         android:id="@+id/editTextDate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/editTingkatKerusakan"
+        android:layout_below="@+id/editTextDescription"
         android:hint="Tanggal Laporan"
         android:layout_marginTop="16dp"
         android:padding="10dp"
         android:background="@drawable/edittext_rounded_background"
-        android:fontFamily="@font/montserrat" />
+        android:fontFamily="@font/montserrat"
+        android:inputType="none"/>
     <Button
         android:id="@+id/buttonSubmit"
         android:layout_width="wrap_content"

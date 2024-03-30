@@ -32,7 +32,7 @@ class AdminDetail : AppCompatActivity() {
         autoCompleteTextView.onItemClickListener = AdapterView.OnItemClickListener {
                 adapterView, view, i, l ->
 
-            val selectedItem = adapterView.getItemAtPosition(i) as String
+            selectedItem = adapterView.getItemAtPosition(i) as String
             //Toast.makeText(this, "Item: $selectedItem", Toast.LENGTH_SHORT).show()
         }
 

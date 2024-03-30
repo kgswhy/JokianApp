@@ -44,15 +44,15 @@ class ProfileFragment : Fragment() {
                 .get()
                 .addOnSuccessListener { documents ->
                     for (document in documents) {
-                        val username = document.getString("name")
+                        val name = document.getString("name")
                         val email = document.getString("email")
 
                         // Menampilkan data pengguna ke UI
-                        binding.usernameTextView.text = "Username: $username"
+                        binding.usernameTextView.text = "Name: $name"
                         binding.emailTextView.text = "Email: $email"
 
                         // Log jika data berhasil diambil
-                        Log.d(TAG, "Data berhasil diambil: Username: $username, Email: $email")
+                        Log.d(TAG, "Data berhasil diambil: Name: $name, Email: $email")
                     }
                 }
                 .addOnFailureListener { exception ->

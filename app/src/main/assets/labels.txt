@@ -1,4 +1,4 @@
-tidak_ada_kerusakan
-rendah
-sedang
-tinggi
+Tidak Ada Kerusakan
+Rendah
+Sedang
+Tinggi
