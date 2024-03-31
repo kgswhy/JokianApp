@@ -1,11 +1,7 @@
 package com.example.firedatabase_assis.Admin
 
-import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.LinearLayout
@@ -20,7 +16,7 @@ import com.squareup.picasso.Picasso
 class AdminHomePage : AppCompatActivity() {
 
     private val startForResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-        if (result.resultCode == Activity.RESULT_OK) {
+        if (result.resultCode == RESULT_OK) {
             val linearLayout: LinearLayout = findViewById(R.id.itemBody)
             linearLayout.removeAllViews()
             reloadData()
@@ -47,7 +43,7 @@ class AdminHomePage : AppCompatActivity() {
                 val status = document.getString("status_penanganan")
                 val date = document.getString("tanggal_laporan")
 
-                val laporanBody = findViewById<ViewGroup>(R.id.itemBody)
+                val laporanBody = findViewById<LinearLayout>(R.id.itemBody)
                 val linearLayout = layoutInflater.inflate(R.layout.layout_item_admin, laporanBody, false) as LinearLayout
                 val imageView = linearLayout.findViewById<ImageView>(R.id.imageview)
                 val tvLocation = linearLayout.findViewById<TextView>(R.id.locationTextView)
@@ -62,9 +58,9 @@ class AdminHomePage : AppCompatActivity() {
                 tvDate.text = date
 
                 editBtn.setOnClickListener {
-                    Intent(this, AdminDetail::class.java).also{
-                        it.putExtra("LAPORAN_ID", laporanId)
-                        startForResult.launch(it)
+                    Intent(this, AdminDetail::class.java).apply {
+                        putExtra("LAPORAN_ID", laporanId)
+                        startForResult.launch(this)
                     }
                 }
 
@@ -82,5 +78,4 @@ class AdminHomePage : AppCompatActivity() {
             ).show()
         }
     }
-
 }
