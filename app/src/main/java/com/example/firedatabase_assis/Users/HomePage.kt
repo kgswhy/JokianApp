@@ -3,15 +3,21 @@ package com.example.firedatabase_assis.Users
 import com.example.firedatabase_assis.Users.Fragment.ProfileFragment
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.firedatabase_assis.Users.Fragment.HomeFragment
 import com.example.firedatabase_assis.R
 import com.example.firedatabase_assis.Users.Fragment.ReportFragment
+import com.example.firedatabase_assis.service.MessagingHandlerService
+import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.messaging.FirebaseMessaging
 
 class HomePage : AppCompatActivity() {
 
     private lateinit var bottomNavigationView: BottomNavigationView
+    private val messagingHandlerService = MessagingHandlerService()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,9 +43,25 @@ class HomePage : AppCompatActivity() {
             }
         }
         replaceFragment(HomeFragment())
+        sendUpdateToken()
     }
 
     private fun replaceFragment(fragment: Fragment){
         supportFragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit()
+    }
+
+    private fun sendUpdateToken() {
+        FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
+            if (!task.isSuccessful) {
+                Log.w("Token", "FCM token failed to retrieve", task.exception)
+                return@OnCompleteListener
+            }
+
+            // Get new FCM registration token
+            val token = task.result
+            messagingHandlerService.updateFCMToken(token)
+            Log.w("Token", "FCM token retrieve success", task.exception)
+
+        })
     }
 }

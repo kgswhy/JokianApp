@@ -39,17 +39,25 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.55" />
+
             <ImageView
-                android:layout_width="160dp"
+                android:id="@+id/imageView"
+                android:layout_width="0dp"
                 android:layout_height="160dp"
                 android:layout_margin="20dp"
                 android:src="@drawable/no_image"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/guideline"
                 android:clipToOutline="true"
                 android:outlineProvider="background"
-                android:background="@drawable/rounded_corner"
-                android:id="@+id/imageView"/>
+                android:background="@drawable/rounded_corner" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -129,6 +137,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
+                app:layout_constraintEnd_toStartOf="@id/guideline"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="15dp"
@@ -143,6 +152,7 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="140dp"
                 android:layout_height="46dp"
+                app:layout_constraintEnd_toStartOf="@id/guideline"
                 android:layout_marginVertical="2dp"
                 android:layout_marginHorizontal="20dp"
                 app:cardBackgroundColor="@color/disabled"

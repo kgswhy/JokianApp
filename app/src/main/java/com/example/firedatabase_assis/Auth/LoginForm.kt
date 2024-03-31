@@ -3,16 +3,21 @@ package com.example.firedatabase_assis.Auth
 import android.app.ProgressDialog
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.example.firedatabase_assis.Admin.AdminHomePage
+import com.example.firedatabase_assis.R
 import com.example.firedatabase_assis.Users.HomePage
 import com.example.firedatabase_assis.databinding.ActivityLoginFormBinding
+import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.messaging.FirebaseMessaging
 
 class LoginForm : AppCompatActivity() {
     private lateinit var bind: ActivityLoginFormBinding
@@ -21,6 +26,7 @@ class LoginForm : AppCompatActivity() {
     private lateinit var progressDialog: ProgressDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         bind = ActivityLoginFormBinding.inflate(layoutInflater)
         setContentView(bind.root)

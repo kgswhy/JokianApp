@@ -52,13 +52,15 @@ dependencies {
     implementation platform("com.google.firebase:firebase-bom:32.8.0")
     implementation "com.google.firebase:firebase-analytics"
     implementation "com.google.firebase:firebase-auth"
+    implementation 'com.google.firebase:firebase-messaging-ktx'
     implementation "com.google.android.gms:play-services-auth:21.0.0"
     implementation "com.google.firebase:firebase-storage"
     implementation 'com.github.bumptech.glide:glide:4.12.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.12.0'
     implementation 'com.squareup.picasso:picasso:2.71828'
     implementation 'com.google.firebase:firebase-messaging-ktx:23.4.1'
-    implementation 'com.google.firebase:firebase-analytics-ktx:21.6.1' // Sesuaikan versi dengan Firebase BoM yang digunakan
+    implementation 'com.google.firebase:firebase-analytics-ktx:21.6.1'
+    implementation 'com.squareup.okhttp3:okhttp:4.9.1'
 }
 
 apply plugin: 'com.google.gms.google-services'

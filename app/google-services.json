@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "463231498844",
+    "firebase_url": "https://panturaapp-default-rtdb.firebaseio.com",
     "project_id": "panturaapp",
     "storage_bucket": "panturaapp.appspot.com"
   },

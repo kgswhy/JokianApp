@@ -1,6 +1,7 @@
 package com.example.firedatabase_assis.Admin
 
 import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
@@ -12,8 +13,11 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.example.firedatabase_assis.R
+import com.example.firedatabase_assis.Users.HomePage
+import com.example.firedatabase_assis.service.MessagingHandlerService
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.squareup.picasso.Picasso
@@ -21,6 +25,7 @@ import com.squareup.picasso.Picasso
 class AdminDetail : AppCompatActivity() {
 
     lateinit var submitBtn: Button
+    private val messagingHandlerService = MessagingHandlerService()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,6 +34,8 @@ class AdminDetail : AppCompatActivity() {
         val db = FirebaseFirestore.getInstance()
         val laporanId = intent.getStringExtra("LAPORAN_ID")
         val laporanCollection = db.collection("laporan")
+        val usersCollection = db.collection("users")
+
 
         val imageView = findViewById<ImageView>(R.id.imageView)
         val tvLocation = findViewById<TextView>(R.id.locationTextView)
@@ -93,6 +100,40 @@ class AdminDetail : AppCompatActivity() {
                 .get()
                 .addOnSuccessListener { documents ->
                     for (document in documents) {
+
+                        val userId = document.getString("userId") // Retrieve userId from the document
+                        if (userId != null) {
+                            usersCollection
+                                .whereEqualTo("userId", userId)
+                                .get()
+                                .addOnSuccessListener { querySnapshot ->
+                                    if (!querySnapshot.isEmpty) {
+                                        val document = querySnapshot.documents[0]
+                                        val fcmToken = document.getString("fcmToken");
+                                        messagingHandlerService.sendNotification(fcmToken, "Update progress", "Status laporan kamu berubah menjadi ${selectedItem}")
+
+                                    } else {
+                                        // Jika dokumen tidak ditemukan, tampilkan pesan kesalahan
+                                        AlertDialog.Builder(this)
+                                            .setTitle("Error")
+                                            .setMessage("Gagal kirim notifikasi ke user.")
+                                            .setPositiveButton("OK", null)
+                                            .show()
+                                    }
+                                }
+                                .addOnFailureListener { e ->
+                                    // Handle failure to retrieve user document
+                                    AlertDialog.Builder(this)
+                                        .setTitle("Error")
+                                        .setMessage("Gagal kirim notifikasi kepada user.")
+                                        .setPositiveButton("OK", null)
+                                        .show()
+                                }
+                        } else {
+                            // Handle case where userId is null in the document
+                        }
+
+
                         laporanCollection.document(document.id)
                             .update("status_penanganan", selectedItem)
                             .addOnSuccessListener {
