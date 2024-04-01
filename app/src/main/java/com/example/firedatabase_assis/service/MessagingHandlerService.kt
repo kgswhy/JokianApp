@@ -1,17 +1,21 @@
 package com.example.firedatabase_assis.service
 
+import android.content.Context
 import android.util.Log
+import com.google.auth.oauth2.GoogleCredentials
+import com.google.auth.oauth2.ServiceAccountCredentials
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import okhttp3.Call
 import okhttp3.Callback
-import okhttp3.Request
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
+import okhttp3.Request
 import okhttp3.RequestBody.Companion.toRequestBody
 import okhttp3.Response
 import org.json.JSONObject
 import java.io.IOException
+
 
 class MessagingHandlerService {
 
@@ -45,10 +49,12 @@ class MessagingHandlerService {
     }
 
 
-    fun sendNotification(token: String?, title: String, body: String) {
+    fun sendNotification(accessToken: String?, token: String?, title: String, body: String) {
         Log.d("kepanggil", "gasih")
         val url = "https://fcm.googleapis.com/v1/projects/panturaapp/messages:send"
-        val serverKey = "ya29.c.c0AY_VpZjDBBR7RDbK-EbKCuqTx9lyP27N8y9_sQYZf11SXqXTawscKHzPE35rcKfW8d8LNYwbOrhFK_j020_CcqebGLtZuIsAo71xBk4zzprMFCgGIP7K7h7a5TypC7xegmybfzZia5eRqJlregbQgDrVNrXqMxpkGoixoZYd6YT5aB8zRZvqR5kgHh3mTQA7O9wLsSKQ1WMAliIrECs7OMJ1eMIM4dnYOIupniOfD9PjUfyzwJd7a4Vrw8M1MN8BSzTPi1bjxtm2szonK7PKdcG-wVYESGH-i48PADxa8R_4s_9Bqr7thBmr9FbIhAQtVJIuM9yjV7Gu6NAG1xVi2H5_DdQVVSSTZWSypq1PP7RitmmKeNEmMwPXT385KOJUatm6Bi5n580IF1r-wgvgcUe7h5cy0c9WeIs39-nZSfoStv_zsZ723nbXUf6z065V9enmVghUoIFdX7My12F0Wnj3JQWZhOB3-rUJ_F5-SQFWJ5MugoIerthOXMVFoXhvs1Wn7ppoqBkIukOY5_0syOr-bXBq993BXVr4k2kInZ5lInqztZIv88Vd8ulhps34rfvfpJj2cuZcr3JdjdlVY3dqnYWYsOatbje_8krghgcj_wZk3zc__2xVortMf5_q7-VaQx8lZa62WJaogI_YoQ9M69ihur5bVjvJc_35UVpO4t5Vt42Stpd6h9sUibMtUiBJveuM2fJzJd8bJcn_r5iY34R0xg-t82mm2W_s1gyqYUxQvopYoB4osw-24eah198OWMSI4XnB5cQ4esrRqurFIvzhQ3sqvrFRiZt4ly7zmuYXYhWOUhqr0FMh7vkJ9UMo0V0Iqq6umrWyOce4pMWF-86mFRyRhy7q8232FR92n0tIMsrejwirXk1hQotJZwmb_SofhXWFmvVMsligv-I_ssYxhbmlXIbqIQ8Onp-fI9mgv122d40w572jahZ-YZhMr5ipzjSb824vpijvkXeas-5r8lrphstqVet99BlvmcgZJgx-_mo"
+        val serverKey = accessToken
+
+        Log.d("Serverkey", serverKey.toString())
 
         val json = JSONObject()
         val message = JSONObject()
@@ -88,4 +94,14 @@ class MessagingHandlerService {
         })
     }
 
+    fun generateAccessToken(context: Context): String {
+        val inputStream = context.assets.open("service-account.json")
+        val credentials = GoogleCredentials.fromStream(inputStream)
+            .createScoped(mutableListOf<String>("https://www.googleapis.com/auth/firebase.messaging"))
+        credentials.refresh()
+        val token = credentials.getAccessToken().tokenValue
+        Log.d("Token", token.toString())
+
+        return token.toString();
+    }
 }

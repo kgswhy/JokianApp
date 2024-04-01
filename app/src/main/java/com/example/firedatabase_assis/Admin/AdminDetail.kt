@@ -21,15 +21,29 @@ import com.example.firedatabase_assis.service.MessagingHandlerService
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.squareup.picasso.Picasso
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class AdminDetail : AppCompatActivity() {
 
     lateinit var submitBtn: Button
     private val messagingHandlerService = MessagingHandlerService()
+    private var accessToken: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_admin_detail)
+
+        // get access token
+        CoroutineScope(Dispatchers.Main).launch {
+            // Switch to IO dispatcher for network operation
+            accessToken = withContext(Dispatchers.IO) {
+                messagingHandlerService.generateAccessToken(this@AdminDetail)
+            }
+
+        }
 
         val db = FirebaseFirestore.getInstance()
         val laporanId = intent.getStringExtra("LAPORAN_ID")
@@ -110,7 +124,7 @@ class AdminDetail : AppCompatActivity() {
                                     if (!querySnapshot.isEmpty) {
                                         val document = querySnapshot.documents[0]
                                         val fcmToken = document.getString("fcmToken");
-                                        messagingHandlerService.sendNotification(fcmToken, "Update progress", "Status laporan kamu berubah menjadi ${selectedItem}")
+                                        messagingHandlerService.sendNotification(accessToken, fcmToken, "Update progress", "Status laporan kamu berubah menjadi ${selectedItem}")
 
                                     } else {
                                         // Jika dokumen tidak ditemukan, tampilkan pesan kesalahan
