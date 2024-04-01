@@ -2,7 +2,6 @@ package com.example.firedatabase_assis.Admin
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -50,14 +49,13 @@ class AdminHomePage : AppCompatActivity() {
                 val tvName = linearLayout.findViewById<TextView>(R.id.usernameTextView)
                 val tvStatus = linearLayout.findViewById<TextView>(R.id.badgeStatus)
                 val tvDate = linearLayout.findViewById<TextView>(R.id.dateTextView)
-                val editBtn = linearLayout.findViewById<ImageButton>(R.id.editBtn)
 
                 tvLocation.text = loc
                 tvName.text = name
                 tvStatus.text = status
                 tvDate.text = date
 
-                editBtn.setOnClickListener {
+                linearLayout.setOnClickListener {
                     Intent(this, AdminDetail::class.java).apply {
                         putExtra("LAPORAN_ID", laporanId)
                         startForResult.launch(this)
