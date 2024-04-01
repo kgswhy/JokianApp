@@ -9,10 +9,5 @@
     <string name="status_prompt">Pilih Status Penanganan</string>
 
     <string name="dropdown_label">Choose an option</string>
-    <string-array name="dropdown_items">
-        <item>Option 1</item>
-        <item>Option 2</item>
-        <item>Option 3</item>
-    </string-array>
 
 </resources>

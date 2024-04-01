@@ -18,7 +18,6 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.squareup.picasso.Picasso
 
 class HomeFragment : Fragment() {
-    // Deklarasikan variabel di luar fungsi onCreateView
     private lateinit var inflaterPublic: LayoutInflater
     private lateinit var laporanBody: ViewGroup
     private var laporanId: String? = null
@@ -40,7 +39,6 @@ class HomeFragment : Fragment() {
         val db = FirebaseFirestore.getInstance()
         val laporanCollection = db.collection("laporan")
 
-        // Tambahkan listener untuk mendengarkan perubahan data secara real-time
         laporanCollection
             .whereEqualTo("userId", FirebaseAuth.getInstance().currentUser?.uid)
             .addSnapshotListener { snapshots, e ->
@@ -54,10 +52,8 @@ class HomeFragment : Fragment() {
                     return@addSnapshotListener
                 }
 
-                // Bersihkan tampilan sebelum menambahkan data baru
                 laporanBody.removeAllViews()
 
-                // Iterasi melalui setiap dokumen dan perbarui tampilan
                 for (document in snapshots!!) {
                     val imageurl = document.getString("image_url") ?: continue
 
@@ -74,10 +70,8 @@ class HomeFragment : Fragment() {
                     val tvName = linearLayout.findViewById<TextView>(R.id.usernameTextView)
                     val tvStatus = linearLayout.findViewById<TextView>(R.id.badgeStatus)
                     val tvDate = linearLayout.findViewById<TextView>(R.id.dateTextView)
-                    val editBtn = linearLayout.findViewById<ImageButton>(R.id.editBtn)
-                    val deleteBtn = linearLayout.findViewById<ImageButton>(R.id.deleteBtn)
 
-                    editBtn.setOnClickListener {
+                    linearLayout.setOnClickListener {
                         Intent(requireContext(), EditLaporan::class.java).also {
                             it.putExtra("LAPORAN_ID", laporanId)
                             startActivity(it)
