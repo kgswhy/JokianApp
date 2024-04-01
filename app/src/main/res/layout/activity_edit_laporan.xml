@@ -213,7 +213,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/deleteBtn"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/textInputLayout2"
                 android:padding="10dp"
@@ -221,6 +221,20 @@
                 android:background="@drawable/rounded_button"
                 android:backgroundTint="@color/button"
                 android:fontFamily="@font/montserrat_medium"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/deleteBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@id/guideline"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textInputLayout2"
+                android:padding="10dp"
+                android:text="Delete Laporan"
+                android:background="@drawable/dialog_button"
+                android:backgroundTint="@color/disabled"
+                android:fontFamily="@font/montserrat_medium"
+                style=""/>
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

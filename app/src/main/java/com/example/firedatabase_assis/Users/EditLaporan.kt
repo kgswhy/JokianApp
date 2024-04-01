@@ -1,7 +1,12 @@
 package com.example.firedatabase_assis.Users
 
 import android.app.Activity
+import android.app.Dialog
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.util.Log
+import android.view.Window
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
@@ -11,12 +16,18 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.firedatabase_assis.R
+import com.google.android.material.button.MaterialButton
+import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.squareup.picasso.Picasso
 
 class EditLaporan : AppCompatActivity() {
 
     lateinit var submitBtn: Button
+    lateinit var db: FirebaseFirestore
+    lateinit var laporanId: String
+    lateinit var laporanCollection: CollectionReference
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -27,9 +38,9 @@ class EditLaporan : AppCompatActivity() {
             insets
         }
 
-        val db = FirebaseFirestore.getInstance()
-        val laporanId = intent.getStringExtra("LAPORAN_ID")
-        val laporanCollection = db.collection("laporan")
+        db = FirebaseFirestore.getInstance()
+        laporanId = intent.getStringExtra("LAPORAN_ID")!!
+        laporanCollection = db.collection("laporan")
 
         val imageView = findViewById<ImageView>(R.id.imageView)
         val tvLocation = findViewById<TextView>(R.id.locationET)
@@ -107,5 +118,66 @@ class EditLaporan : AppCompatActivity() {
                     ).show()
                 }
         }
+
+        val btnDelete : MaterialButton = findViewById(R.id.deleteBtn)
+
+        btnDelete.setOnClickListener{
+            val message = "Are you sure you want to delete this report?"
+            showCustomDialog(message)
+        }
+
+    }
+
+    private fun showCustomDialog(message: String){
+        val dialog = Dialog(this)
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.setCancelable(false)
+        dialog.setContentView(R.layout.layout_custom_dialog)
+        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+        val tvMessage: TextView = dialog.findViewById(R.id.tvMessage)
+        val btnYes: MaterialButton = dialog.findViewById(R.id.btnYes)
+        val btnNo: MaterialButton = dialog.findViewById(R.id.btnNo)
+
+        tvMessage.text = message
+
+        btnYes.setOnClickListener{
+            laporanCollection
+                .whereEqualTo("laporanId", laporanId)
+                .get()
+                .addOnSuccessListener { documents ->
+                    for (document in documents) {
+                        laporanCollection.document(document.id).delete()
+                            .addOnSuccessListener {
+                                Toast.makeText(
+                                    this,
+                                    "Berhasil Delete Laporan!",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                                finish()
+                            }
+                            .addOnFailureListener { e ->
+                                Toast.makeText(
+                                    this,
+                                    "Error: ${e.message}",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }
+                    }
+                }
+                .addOnFailureListener { e ->
+                    Toast.makeText(
+                        this,
+                        "Error: ${e.message}",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+        }
+
+        btnNo.setOnClickListener{
+            dialog.dismiss()
+        }
+
+        dialog.show()
     }
 }
