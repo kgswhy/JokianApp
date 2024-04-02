@@ -1,4 +1,4 @@
 No damage
-Low
-Currently
-Height
+Low damage
+Medium Damage
+High damage

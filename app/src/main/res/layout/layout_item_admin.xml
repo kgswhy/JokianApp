@@ -106,6 +106,7 @@
                         android:layout_marginHorizontal="5dp"
                         android:layout_marginVertical="2dp"
                         android:textSize="11sp"
+                        android:textColor="@color/white"
                         android:fontFamily="@font/montserrat_medium"
                         android:id="@+id/badgeStatus"/>
 

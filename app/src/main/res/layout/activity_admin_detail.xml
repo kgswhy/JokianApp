@@ -1,246 +1,220 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".Admin.AdminDetail">
+    android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
-        android:fontFamily="@font/montserrat_extrabold"
-        android:text="Report Details"
-        android:textColor="@color/primary"
-        android:textSize="36sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:id="@+id/header"/>
-
-    <androidx.cardview.widget.CardView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="450dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:cardBackgroundColor="@color/white"
-        android:layout_marginHorizontal="10dp"
-        app:cardElevation="10dp"
-        app:cardCornerRadius="8dp"
-        app:cardUseCompatPadding="true">
+        android:layout_height="wrap_content"
+        tools:context=".Admin.AdminDetail">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-            <ImageView
-                android:layout_width="160dp"
-                android:layout_height="160dp"
-                android:layout_margin="20dp"
-                android:src="@drawable/no_image"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:clipToOutline="true"
-                android:outlineProvider="background"
-                android:background="@drawable/rounded_corner"
-                android:id="@+id/imageView"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginVertical="25dp"
-                android:layout_marginHorizontal="15dp"
-                app:layout_constraintStart_toEndOf="@id/imageView"
-                app:layout_constraintTop_toTopOf="parent"
-                android:text="Name of The Report:"
-                android:textColor="@color/black"
-                android:fontFamily="@font/montserrat"
-                android:id="@+id/labelPelapor"/>
-
-            <androidx.cardview.widget.CardView
-                android:layout_width="130dp"
-                android:layout_height="30dp"
-                android:layout_marginVertical="0dp"
-                android:layout_marginHorizontal="15dp"
-                app:cardBackgroundColor="@color/disabled"
-                app:cardElevation="5dp"
-                app:cardCornerRadius="5dp"
-                app:layout_constraintStart_toEndOf="@id/imageView"
-                app:layout_constraintTop_toBottomOf="@id/labelPelapor"
-                android:id="@+id/cardUsername">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:textColor="@color/header"
-                    android:textSize="11sp"
-                    android:fontFamily="@font/montserrat_medium"
-                    android:id="@+id/usernameTextView"
-                    android:maxLines="1"/>
-
-            </androidx.cardview.widget.CardView>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginVertical="10dp"
-                android:layout_marginHorizontal="15dp"
-                app:layout_constraintStart_toEndOf="@id/imageView"
-                app:layout_constraintTop_toBottomOf="@id/cardUsername"
-                android:text="Description :"
-                android:textColor="@color/black"
-                android:fontFamily="@font/montserrat"
-                android:id="@+id/labelDesc"/>
-
-            <androidx.cardview.widget.CardView
-                android:layout_width="130dp"
-                android:layout_height="65dp"
-                android:layout_marginVertical="0dp"
-                android:layout_marginHorizontal="15dp"
-                app:cardBackgroundColor="@color/disabled"
-                app:cardElevation="5dp"
-                app:cardCornerRadius="5dp"
-                app:layout_constraintStart_toEndOf="@id/imageView"
-                app:layout_constraintTop_toBottomOf="@id/labelDesc"
-                android:id="@+id/cardDesc">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:textColor="@color/header"
-                    android:textSize="11sp"
-                    android:fontFamily="@font/montserrat_medium"
-                    android:id="@+id/descTextView"/>
-
-            </androidx.cardview.widget.CardView>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginVertical="15dp"
-                android:layout_marginHorizontal="20dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/imageView"
-                android:text="Damage Level :"
-                android:textColor="@color/black"
-                android:fontFamily="@font/montserrat"
-                android:id="@+id/labelKerusakan"/>
-
-            <androidx.cardview.widget.CardView
-                android:layout_width="140dp"
-                android:layout_height="30dp"
-                android:layout_marginVertical="2dp"
-                android:layout_marginHorizontal="20dp"
-                app:cardBackgroundColor="@color/disabled"
-                app:cardElevation="5dp"
-                app:cardCornerRadius="5dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/labelKerusakan"
-                android:id="@+id/cardKerusakan">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:textColor="@color/header"
-                    android:textSize="11sp"
-                    android:fontFamily="@font/montserrat_medium"
-                    android:id="@+id/kerusakanTextView"/>
-
-            </androidx.cardview.widget.CardView>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginVertical="15dp"
-                android:layout_marginHorizontal="15dp"
-                app:layout_constraintTop_toBottomOf="@id/imageView"
-                app:layout_constraintStart_toEndOf="@id/imageView"
-                android:text="Location :"
-                android:textColor="@color/black"
-                android:fontFamily="@font/montserrat"
-                android:id="@+id/labelLocation"/>
-
-            <androidx.cardview.widget.CardView
-                android:layout_width="130dp"
-                android:layout_height="30dp"
-                android:layout_marginVertical="2dp"
-                android:layout_marginHorizontal="15dp"
-                app:cardBackgroundColor="@color/disabled"
-                app:cardElevation="5dp"
-                app:cardCornerRadius="5dp"
-                app:layout_constraintStart_toEndOf="@id/imageView"
-                app:layout_constraintTop_toBottomOf="@id/labelLocation"
-                android:id="@+id/cardLocation">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:textColor="@color/header"
-                    android:textSize="11sp"
-                    android:fontFamily="@font/montserrat_medium"
-                    android:id="@+id/locationTextView"
-                    android:maxLines="1"/>
-
-            </androidx.cardview.widget.CardView>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginVertical="15dp"
-                android:layout_marginHorizontal="20dp"
-                app:layout_constraintTop_toBottomOf="@id/cardLocation"
-                app:layout_constraintStart_toStartOf="parent"
-                android:text="Handling Status :"
-                android:textColor="@color/black"
-                android:fontFamily="@font/montserrat"
-                android:id="@+id/labelStatus"/>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textInputLayout"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="20dp"
-                app:layout_constraintStart_toStartOf="@id/imageView"
-                app:layout_constraintTop_toBottomOf="@id/labelStatus"
-                style="@style/Widget.Material3.TextInputLayout.FilledBox.ExposedDropdownMenu">
+                android:orientation="horizontal">
 
-                <AutoCompleteTextView
-                    android:id="@+id/autoCompleteTextView"
+                <!-- Centered Text -->
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/montserrat_extrabold"
+                    android:gravity="center"
+                    android:text="Report"
+                    android:textSize="20dp" />
+
+            </LinearLayout>
+
+            <FrameLayout
+                android:layout_width="136dp"
+                android:layout_height="136dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="20sp"
+                android:background="@android:color/darker_gray">
+
+                <ImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop" />
+
+            </FrameLayout>
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="15sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="10sp"
+                android:orientation="vertical">
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/dropdown_label"
-                    android:inputType="none"
-                    android:fontFamily="@font/montserrat_medium"
-                    android:textSize="11sp"/>
+                    android:layout_margin="10dp"
+                    android:orientation="vertical">
 
-            </com.google.android.material.textfield.TextInputLayout>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/montserrat_extrabold"
+                        android:text="Username"
+                        android:textColor="#000000"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/submitBtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/textInputLayout"
-                android:padding="10dp"
-                android:text="Respond to Reports"
-                android:background="@drawable/buttonstyle"
-                android:backgroundTint="@color/button"
-                android:fontFamily="@font/montserrat_medium"/>
+                    <TextView
+                        android:id="@+id/usernameTextView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/montserrat_medium"
+                        android:hint=""
+                        android:inputType="text"
+                        android:padding="10dp" />
+                </LinearLayout>
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:orientation="vertical">
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/montserrat_extrabold"
+                        android:text="Description"
+                        android:textColor="#000000"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
 
-    </androidx.cardview.widget.CardView>
+                    <TextView
+                        android:id="@+id/descTextView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/montserrat_medium"
+                        android:hint=""
+                        android:inputType="text"
+                        android:padding="10dp" />
+                </LinearLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/montserrat_extrabold"
+                        android:text="Damage Level"
+                        android:textColor="#000000"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/kerusakanTextView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/montserrat_medium"
+                        android:hint=""
+                        android:inputType="text"
+                        android:padding="10dp" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/montserrat_extrabold"
+                        android:text="Location"
+                        android:textColor="#000000"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/locationTextView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/montserrat_medium"
+                        android:hint=""
+                        android:inputType="text"
+                        android:padding="10dp" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/montserrat_extrabold"
+                        android:text="Handling Status"
+                        android:textColor="#000000"
+                        android:textSize="18sp"
+                        android:id="@+id/status"
+                        android:textStyle="bold" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/textInputLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="20dp"
+                        app:layout_constraintStart_toStartOf="@id/imageView"
+                        app:layout_constraintTop_toBottomOf="@id/status"
+                        style="@style/Widget.Material3.TextInputLayout.FilledBox.ExposedDropdownMenu">
+
+                        <AutoCompleteTextView
+                            android:id="@+id/autoCompleteTextView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/dropdown_label"
+                            android:inputType="none"
+                            android:fontFamily="@font/montserrat_medium"
+                            android:textSize="11sp"/>
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="15sp" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/submitBtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|center_horizontal"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginBottom="10sp"
+                    android:adjustViewBounds="true"
+                    android:background="@drawable/button_black"
+                    android:fontFamily="@font/montserrat_extrabold"
+                    android:padding="15dp"
+                    android:text="Report"
+                    android:textColor="#FFF" />
+
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
