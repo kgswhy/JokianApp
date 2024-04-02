@@ -48,8 +48,8 @@ class ProfileFragment : Fragment() {
                         val email = document.getString("email")
 
                         // Menampilkan data pengguna ke UI
-                        binding.usernameTextView.text = "Name: $name"
-                        binding.emailTextView.text = "Email: $email"
+                        binding.usernameTextView.text = "$name"
+//                        binding.emailTextView.text = "Email: $email"
 
                         // Log jika data berhasil diambil
                         Log.d(TAG, "Data berhasil diambil: Name: $name, Email: $email")

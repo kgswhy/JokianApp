@@ -1,50 +1,154 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingStart="20dp"
-    android:paddingEnd="20dp"
+
     android:paddingTop="40dp"
     android:paddingBottom="20dp"
     android:background="@color/white"
+    android:orientation="vertical"
     tools:context=".Users.Fragment.ProfileFragment">
 
-    <!-- TextView untuk menampilkan username -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <!-- Centered Text -->
+        <TextView
+            android:fontFamily="@font/montserrat_extrabold"
+            android:textSize="20dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Profile"
+            android:gravity="center"/>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:orientation="vertical">
+
     <TextView
-        android:id="@+id/usernameTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="18sp"
-        android:textColor="@color/black"
-        android:text="Username: "
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-        android:fontFamily="@font/montserrat"/>
+            android:id="@+id/usernameTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:textColor="@color/black"
+            android:text="Username"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/montserrat"/>
+        <TextView
+            android:id="@+id/levelTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="9sp"
+            android:textColor="@color/grey"
+            android:text="Admin"
+            android:layout_centerHorizontal="true"
+            android:fontFamily="@font/montserrat"/>
 
-    <!-- TextView untuk menampilkan email -->
-    <TextView
-        android:id="@+id/emailTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="18sp"
-        android:textColor="@color/black"
-        android:text="Email: "
-        android:layout_below="@id/usernameTextView"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp"
-        android:fontFamily="@font/montserrat"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical">
 
-    <!-- Tombol untuk logout -->
-    <Button
-        android:id="@+id/logoutButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Logout"
-        android:layout_below="@id/emailTextView"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-        android:fontFamily="@font/montserrat_medium"
-        android:backgroundTint="@color/teal_200"/>
+            <TextView
+                android:fontFamily="@font/montserrat"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Pengaturan aplikasi"
+                android:textColor="#40FFFFFF"
+                android:textSize="13dp"
+                android:textStyle="bold" />
 
-</RelativeLayout>
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnSettingBahasa"
+                android:layout_width="match_parent"
+                android:fontFamily="@font/montserrat"
+                android:layout_height="wrap_content"
+                android:background="@drawable/button_profile"
+                android:drawableEnd="@drawable/baseline_keyboard_arrow_right_24"
+                android:gravity="start|center"
+                android:text="Personal information"
+                android:textAllCaps="false"
+                android:textColor="@color/black"
+                android:textSize="15dp" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnHistoryTicket"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/button_profile"
+
+                android:fontFamily="@font/montserrat"
+                android:drawableEnd="@drawable/baseline_keyboard_arrow_right_24"
+                android:gravity="start|center"
+                android:text="Settings"
+                android:textAllCaps="false"
+                android:textColor="@color/black"
+                android:textSize="15dp" />
+
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/logoutButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat"
+                android:background="@drawable/button_profile"
+                android:drawableEnd="@drawable/baseline_keyboard_arrow_right_24"
+                android:gravity="start|center"
+                android:text="Logout"
+                android:textAllCaps="false"
+                android:textColor="@color/black"
+                android:textSize="15dp">
+
+            </androidx.appcompat.widget.AppCompatButton>
+        </LinearLayout>
+
+    </LinearLayout>
+        <!-- TextView untuk menampilkan username -->
+<!--    <TextView-->
+<!--        android:id="@+id/usernameTextView"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:textSize="18sp"-->
+<!--        android:textColor="@color/black"-->
+<!--        android:text="Username: "-->
+<!--        android:layout_centerHorizontal="true"-->
+<!--        android:layout_marginTop="20dp"-->
+<!--        android:fontFamily="@font/montserrat"/>-->
+
+<!--    &lt;!&ndash; TextView untuk menampilkan email &ndash;&gt;-->
+<!--    <TextView-->
+<!--        android:id="@+id/emailTextView"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:textSize="18sp"-->
+<!--        android:textColor="@color/black"-->
+<!--        android:text="Email: "-->
+<!--        android:layout_below="@id/usernameTextView"-->
+<!--        android:layout_centerHorizontal="true"-->
+<!--        android:layout_marginTop="16dp"-->
+<!--        android:fontFamily="@font/montserrat"/>-->
+
+<!--    &lt;!&ndash; Tombol untuk logout &ndash;&gt;-->
+<!--    <Button-->
+<!--        android:id="@+id/logoutButton"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="Logout"-->
+<!--        android:layout_below="@id/emailTextView"-->
+<!--        android:layout_centerHorizontal="true"-->
+<!--        android:layout_marginTop="20dp"-->
+<!--        android:fontFamily="@font/montserrat_medium"-->
+<!--        android:backgroundTint="@color/teal_200"/>-->
+
+</LinearLayout>

@@ -1,44 +1,107 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingRight="15dp"
+    android:paddingLeft="15dp"
+
+    android:paddingTop="40dp"
+    android:paddingBottom="20dp"
+    android:background="@color/white"
     android:orientation="vertical"
     tools:context=".Users.Fragment.HomeFragment">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="30dp"
-        android:fontFamily="@font/montserrat_extrabold"
-        android:text="Laporan Saya"
-        android:textColor="@color/header"
-        android:textSize="36sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
-
-    <ScrollView
+    <LinearLayout
+        android:layout_marginBottom="20dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="120dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        tools:layout_editor_absoluteX="0dp">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- Centered Text -->
+        <TextView
+            android:fontFamily="@font/montserrat"
+            android:textSize="12dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textColor="#7E848D"
+            android:text="Welcome back,"/>
+        <TextView
+            android:fontFamily="@font/montserrat_medium"
+            android:textSize="18dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Username"/>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:background="@drawable/button_add_laporan"
+        android:layout_width="match_parent"
+        android:layout_height="184dp"
+        android:orientation="vertical">
 
         <LinearLayout
+            android:background="@drawable/button_add_laporan_putih"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:id="@+id/itemBody">
+            android:layout_margin="26dp"
+            android:orientation="vertical">
+
+            <!-- Nested LinearLayout for centering the button -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/GoToLaporan"
+                    android:background="@drawable/button_add_laporan"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#222A34"
+                    android:text="Add report here"
+                    android:fontFamily="@font/montserrat_medium"/>
+
+            </LinearLayout>
 
         </LinearLayout>
 
 
-    </ScrollView>
+    </LinearLayout>
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="20dp"/>
+
+    <TextView
+        android:textSize="18dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Your report"
+        android:fontFamily="@font/montserrat_extrabold"/>
 
 
 
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="15dp"
+            tools:layout_editor_absoluteX="0dp">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:id="@+id/itemBody">
+
+            </LinearLayout>
+
+
+        </ScrollView>
+
+</LinearLayout>

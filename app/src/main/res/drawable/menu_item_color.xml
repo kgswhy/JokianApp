@@ -1,0 +1,17 @@
+<!-- menu_item_color.xml -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Normal state -->
+    <item android:state_pressed="false" android:state_selected="false">
+        <color android:color="#8B8B94" /> <!-- Solid color -->
+    </item>
+
+    <!-- Pressed state -->
+    <item android:state_pressed="true">
+        <color android:color="#222A34" /> <!-- Specify pressed color if needed -->
+    </item>
+
+    <!-- Focused state -->
+    <item android:state_focused="true">
+        <color android:color="#222A34" /> <!-- Specify focused color if needed -->
+    </item>
+</selector>

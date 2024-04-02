@@ -44,7 +44,7 @@ class EditLaporan : AppCompatActivity() {
 
         val imageView = findViewById<ImageView>(R.id.imageView)
         val tvLocation = findViewById<TextView>(R.id.locationET)
-        val tvName = findViewById<TextView>(R.id.usernameTextView)
+//        val tvName = findViewById<TextView>(R.id.usernameTextView)
         val tvDesc = findViewById<TextView>(R.id.descET)
         val tvDamage = findViewById<TextView>(R.id.kerusakanTextView)
 
@@ -63,7 +63,6 @@ class EditLaporan : AppCompatActivity() {
                     tvDesc.text = desc
                     tvDamage.text = tingkatKerusakan
                     tvLocation.text = loc
-                    tvName.text = name
 
                     Picasso.get()
                         .load(imageurl)
