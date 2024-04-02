@@ -1,4 +1,4 @@
-Tidak Ada Kerusakan
-Rendah
-Sedang
-Tinggi
+No damage
+Low
+Currently
+Height

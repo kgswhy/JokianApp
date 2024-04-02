@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="status_array">
-        <item>Menunggu</item>
-        <item>Diproses</item>
-        <item>Selesai</item>
+        <item>Wait</item>
+        <item>Processed</item>
+        <item>Finished</item>
     </string-array>
 </resources>

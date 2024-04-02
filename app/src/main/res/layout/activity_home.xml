@@ -11,7 +11,7 @@
         android:layout_height="match_parent"
         android:layout_width="match_parent"
         android:id="@+id/frame_container"/>
-
+    
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -20,9 +20,9 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:menu="@menu/bottom_navigation_menu"
-        android:background="#F4F4F4"
-        app:itemIconTint="#222A34"
-        app:itemTextColor="#222A34"
+        android:background="@color/primary"
+        app:itemIconTint="@color/white"
+        app:itemTextColor="@color/white"
         app:itemIconSize="30dp"
         app:itemActiveIndicatorStyle="@style/App.Custom.Indicator"/>
 

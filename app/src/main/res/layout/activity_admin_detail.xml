@@ -12,8 +12,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="60dp"
         android:fontFamily="@font/montserrat_extrabold"
-        android:text="Detail Laporan"
-        android:textColor="@color/header"
+        android:text="Report Details"
+        android:textColor="@color/primary"
         android:textSize="36sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -57,7 +57,7 @@
                 android:layout_marginHorizontal="15dp"
                 app:layout_constraintStart_toEndOf="@id/imageView"
                 app:layout_constraintTop_toTopOf="parent"
-                android:text="Nama Pelapor :"
+                android:text="Name of The Report:"
                 android:textColor="@color/black"
                 android:fontFamily="@font/montserrat"
                 android:id="@+id/labelPelapor"/>
@@ -93,7 +93,7 @@
                 android:layout_marginHorizontal="15dp"
                 app:layout_constraintStart_toEndOf="@id/imageView"
                 app:layout_constraintTop_toBottomOf="@id/cardUsername"
-                android:text="Keterangan :"
+                android:text="Description :"
                 android:textColor="@color/black"
                 android:fontFamily="@font/montserrat"
                 android:id="@+id/labelDesc"/>
@@ -128,7 +128,7 @@
                 android:layout_marginHorizontal="20dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/imageView"
-                android:text="Tingkat Kerusakan :"
+                android:text="Damage Level :"
                 android:textColor="@color/black"
                 android:fontFamily="@font/montserrat"
                 android:id="@+id/labelKerusakan"/>
@@ -199,7 +199,7 @@
                 android:layout_marginHorizontal="20dp"
                 app:layout_constraintTop_toBottomOf="@id/cardLocation"
                 app:layout_constraintStart_toStartOf="parent"
-                android:text="Status Penanganan :"
+                android:text="Handling Status :"
                 android:textColor="@color/black"
                 android:fontFamily="@font/montserrat"
                 android:id="@+id/labelStatus"/>
@@ -233,8 +233,8 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/textInputLayout"
                 android:padding="10dp"
-                android:text="Tanggapi Laporan"
-                android:background="@drawable/rounded_button"
+                android:text="Respond to Reports"
+                android:background="@drawable/buttonstyle"
                 android:backgroundTint="@color/button"
                 android:fontFamily="@font/montserrat_medium"/>
 

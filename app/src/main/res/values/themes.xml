@@ -2,7 +2,7 @@
     <!-- Base application theme. -->
     <style name="Theme.Firedatabase_assis" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_500</item>
+        <iotem name="colorPrimary">@color/primary</iotem>
         <item name="colorPrimaryVariant">@color/purple_700</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
@@ -18,6 +18,6 @@
     <style name="Theme.BottomNavigation" parent="Theme.Firedatabase_assis"></style>
 
     <style name="App.Custom.Indicator" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">
-        <item name="android:color">#9DA69C</item>
+        <item name="android:color">@color/primary</item>
     </style>
 </resources>
