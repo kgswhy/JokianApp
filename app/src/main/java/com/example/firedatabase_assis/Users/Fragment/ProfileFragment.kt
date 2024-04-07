@@ -1,12 +1,14 @@
 package com.example.firedatabase_assis.Users.Fragment
 
 import android.content.ContentValues.TAG
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.example.firedatabase_assis.Auth.LoginForm
 import com.example.firedatabase_assis.databinding.FragmentProfileBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -64,8 +66,15 @@ class ProfileFragment : Fragment() {
 
         // Menambahkan listener untuk logout saat tombol logout ditekan
         binding.logoutButton.setOnClickListener {
+
+            // logout
             auth.signOut()
             // Kembali ke halaman login
+
+            val intent = Intent(activity, LoginForm::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            startActivity(intent)
+
             activity?.finish() // Tutup activity saat ini
         }
     }

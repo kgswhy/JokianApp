@@ -28,6 +28,7 @@
             android:textColor="#7E848D"
             android:text="Welcome back,"/>
         <TextView
+            android:id="@+id/usernameTextView"
             android:fontFamily="@font/montserrat_medium"
             android:textSize="18dp"
             android:layout_width="match_parent"
@@ -63,8 +64,8 @@
                     android:background="@drawable/button_add_laporan"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="#222A34"
-                    android:text="Add report here"
+                    android:textColor="#FFF"
+                    android:text="Road Ranger"
                     android:fontFamily="@font/montserrat_medium"/>
 
             </LinearLayout>
@@ -86,11 +87,12 @@
         android:fontFamily="@font/montserrat_extrabold"/>
 
 
-
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="15dp"
+            android:layout_marginBottom="50dp"
+
             tools:layout_editor_absoluteX="0dp">
 
             <LinearLayout

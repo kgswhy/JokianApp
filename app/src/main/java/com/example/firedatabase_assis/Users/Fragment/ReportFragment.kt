@@ -187,6 +187,11 @@ class ReportFragment : Fragment() {
             }
         }
 
+//        labels.txt
+//        rendah   0
+//        sedang   1 (deteksi disini)
+//        tinggi   2
+
         return labels[maxIdx]
     }
 

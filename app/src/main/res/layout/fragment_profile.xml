@@ -50,7 +50,7 @@
             android:layout_height="wrap_content"
             android:textSize="9sp"
             android:textColor="@color/grey"
-            android:text="Admin"
+            android:text="User"
             android:layout_centerHorizontal="true"
             android:fontFamily="@font/montserrat"/>
 
